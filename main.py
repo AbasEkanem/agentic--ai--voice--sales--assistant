@@ -65,8 +65,24 @@ class AgenticSalesVoice_AI_Asistant(Agent):
 #set up the server
 server = AgentServer()
 
+import threading
+
+
+def _warm_vector_store():
+    try:
+        from RAG_pipeline import get_vector_store
+
+        get_vector_store()
+        logger.info("RAG vector store warmed up successfully in background")
+    except Exception as exc:
+        logger.warning("RAG background warm-up warning: %s", exc)
+
+
 def prewarm(proc: JobProcess):
     proc.userdata["vad"] = silero.VAD.load()
+    # Warm up the RAG knowledge base in the background so it loads once at startup
+    # without blocking LiveKit's 10-second process health check.
+    threading.Thread(target=_warm_vector_store, daemon=True).start()
 
 server.setup_fnc = prewarm
 # create the RTC session entrypoint
