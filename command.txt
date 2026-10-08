@@ -1,0 +1,37 @@
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex" to install uv
+uv pip install <dependency name> - to install dependencies into an existing virtualenv
+uv --version - to check the version of the installed uv
+uv init - to initialize the project
+type nul > main.py - to add the main.py
+
+uv add <dependency names> to add the installed to the pyproject.toml
+(virtualenv) C:\Users\Bussiness Sensor\Desktop\react agentic ai projects>deactivate
+C:\Users\Bussiness Sensor\Desktop\react agentic ai projects>
+
+Then activate the new uv environment:
+.venv\Scripts\activate
+
+C:\Users\Bussiness Sensor\Desktop\react agentic ai projects>.venv\Scripts\activate
+(react-agentic-ai-projects) C:\Users\Bussiness Sensor\Desktop\react agentic ai projects>
+
+Let's make sure all the core packages import successfully.
+
+Run this single command:
+python -c "import pipecat, langchain, langgraph, deepagents, groq, openai, httpx, dotenv, sqlalchemy, psycopg; print('ALL CORE IMPORTS OK')"
+
+uv add "pipecat-ai[webrtc,groq,deepgram,silero]>=1.9.0,<2" langgraph langchain langchain-openai deepagents "psycopg[binary]" fastapi uvicorn httpx python-dotenv langsmith groq
+uv add --dev pytest ruff
+Now let's inspect the final project config
+
+Run:
+
+type pyproject.toml
+notepad pyproject.toml - to rename the projects
+[project]
+name = "voice-sales-agent"
+
+run: uv lock -- to remove the old name and add the new name
+result: Removed react-agentic-ai-projects v0.1.0
+Added voice-sales-agent v0.1.0
+
+uv sync

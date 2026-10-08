@@ -1,0 +1,10 @@
+To build a voice agent using livekit integrated into langgraph we follow the following instructions
+prerequisites:
+
+LIVEKIT_URL=your_livekit_url
+LIVEKIT_API_KEY=your_api_key
+LIVEKIT_API_SECRET=your_api_secret
+OPENAI_API_KEY=your_openai_api_key
+
+pip install "livekit-agents[silero]" livekit-plugins-langchain langchain-openai langgraph python-dotenv
+you could use uv add
