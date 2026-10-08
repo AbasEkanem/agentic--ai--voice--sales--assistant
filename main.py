@@ -66,17 +66,7 @@ class AgenticSalesVoice_AI_Asistant(Agent):
 server = AgentServer()
 
 def prewarm(proc: JobProcess):
-    # Load every heavy, reusable model ONCE per worker process, off the hot path.
-    # Without this, VAD is missing (sluggish end-of-utterance detection) and the turn
-    # detector + RAG (torch + embeddings + FAISS) all cold-load during the first live
-    # call — which is what pushed time-to-first-audio to ~7s.
     proc.userdata["vad"] = silero.VAD.load()
-    try:
-        from RAG_pipeline import get_vector_store
-
-        get_vector_store()  # builds/loads the FAISS index + embedding model at boot
-    except Exception:
-        logger.exception("RAG warm-up failed; retriever will cold-load on first use")
 
 server.setup_fnc = prewarm
 # create the RTC session entrypoint
